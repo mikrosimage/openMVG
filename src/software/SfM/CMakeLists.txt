@@ -1,4 +1,3 @@
-
 ADD_EXECUTABLE(openMVG_main_CreateList main_CreateList.cpp)
 TARGET_LINK_LIBRARIES(openMVG_main_CreateList
                      ${OpenMVG_LIBS} easyexif)
@@ -8,6 +7,15 @@ install(TARGETS openMVG_main_CreateList DESTINATION bin/)
 
 #Add executable that computes:
 # - features and descriptors
+#
+ADD_EXECUTABLE(openMVG_main_extractFeatures main_extractFeatures.cpp)
+TARGET_LINK_LIBRARIES(openMVG_main_extractFeatures
+                     ${OpenMVG_LIBS})
+SET_PROPERTY(TARGET openMVG_main_extractFeatures PROPERTY FOLDER OpenMVG/software)
+
+install(TARGETS openMVG_main_extractFeatures  DESTINATION bin/)
+
+#Add executable that computes:
 # - putatives matches
 # - geometric filtered matches
 #
