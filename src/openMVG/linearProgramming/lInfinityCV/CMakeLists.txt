@@ -29,7 +29,9 @@ SET(LOCAL_LIBS
   openMVG_multiview
   openMVG_lInftyComputerVision
   ${openMVG_linearProgramming})
-  
+
+install(TARGETS openMVG_lInftyComputerVision DESTINATION lib/)
+
 # Linfinity Triangulation
 UNIT_TEST(openMVG_lInftyCV triangulation "${LOCAL_LIBS}")
 
