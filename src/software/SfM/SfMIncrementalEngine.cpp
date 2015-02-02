@@ -216,7 +216,7 @@ bool IncrementalReconstructionEngine::ReadInputData()
   // b. Read matches (Fundamental)
   // TODO check format
   std::vector<std::string> vec_imageFiles = stlplus::folder_files(_sImagePath);
-  if (!matching::PairedIndMatchImport(_sMatchesPath, vec_imageFiles, _map_Matches_F)) {
+  if (!matching::PairedIndMatchImport(matching::FUNDAMENTAL_MATRIX, _sMatchesPath, vec_imageFiles, _map_Matches_F)) {
     std::cerr<< "Unable to read the Fundamental matrix matches" << std::endl;
     return false;
   }

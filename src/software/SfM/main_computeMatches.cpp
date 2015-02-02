@@ -42,13 +42,6 @@ using namespace openMVG::matching;
 using namespace openMVG::robust;
 using namespace std;
 
-enum eGeometricModel
-{
-  FUNDAMENTAL_MATRIX = 0,
-  ESSENTIAL_MATRIX   = 1,
-  HOMOGRAPHY_MATRIX  = 2
-};
-
 enum ePairMode
 {
   PAIR_EXHAUSTIVE = 0,

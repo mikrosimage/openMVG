@@ -83,7 +83,7 @@ int main(int argc, char ** argv)
 
   PairWiseMatches map_Matches;
   std::vector<std::string> vec_imageFiles = stlplus::folder_files(sImaDirectory);
-  PairedIndMatchImport(sMatchesDir, vec_imageFiles, map_Matches);
+  PairedIndMatchImport(matching::FUNDAMENTAL_MATRIX, sMatchesDir, vec_imageFiles, map_Matches);
 
   // ------------
   // For each pair, export the matches

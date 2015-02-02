@@ -19,6 +19,13 @@
 namespace openMVG {
 namespace matching {
 
+enum eGeometricModel
+{
+  FUNDAMENTAL_MATRIX = 0,
+  ESSENTIAL_MATRIX   = 1,
+  HOMOGRAPHY_MATRIX  = 2
+};
+
 /// Export vector of IndMatch to a stream
 static bool PairedIndMatchToStream(
   const PairWiseMatches & map_indexedMatches,
@@ -94,6 +101,7 @@ static bool PairedIndMatchImportAdd(
 
 /// Import vector of IndMatch from a directory
 static bool PairedIndMatchImport(
+  eGeometricModel geometricModel,
   const std::string& matchesDir,
   const std::vector<std::string>& vec_imageNameList,
   PairWiseMatches & map_indexedMatches)
@@ -110,7 +118,20 @@ static bool PairedIndMatchImport(
   map_indexedMatches.clear();
   for(std::vector<std::string>::const_iterator it = vec_imageNameList.begin(); it != vec_imageNameList.end(); ++it)
   {
-    const std::string imageMatchePath = stlplus::create_filespec(matchesDir, stlplus::basename_part(*it) + ".matches.f.txt");  
+    std::string fileName;
+    switch(geometricModel)
+    {
+      case FUNDAMENTAL_MATRIX:
+        fileName = ".matches.f.txt";
+        break;
+      case ESSENTIAL_MATRIX:
+        fileName = ".matches.e.txt";
+        break;
+      case HOMOGRAPHY_MATRIX:
+        fileName = ".matches.h.txt";
+        break;
+    }
+    const std::string imageMatchePath = stlplus::create_filespec(matchesDir, stlplus::basename_part(*it) + fileName);  
     std::cout << imageMatchePath << std::endl;
     bOk = PairedIndMatchImportAdd(imageMatchePath, map_indexedMatches);
     if(!bOk)

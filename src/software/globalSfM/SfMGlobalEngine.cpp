@@ -1120,9 +1120,8 @@ bool GlobalReconstructionEngine::ReadInputData()
 
   // a. Read images names
   std::string sListsFile = stlplus::create_filespec(_sMatchesPath,"lists","txt");
-  std::string sComputedMatchesFile_E = stlplus::create_filespec(_sMatchesPath,"matches.e","txt");
-  if (!stlplus::is_file(sListsFile)||
-    !stlplus::is_file(sComputedMatchesFile_E) )
+  // std::string sComputedMatchesFile_E = stlplus::create_filespec(_sMatchesPath,"matches.e","txt");
+  if (!stlplus::is_file(sListsFile))
   {
     std::cerr << std::endl
       << "One of the input required file is not a present (lists.txt, matches.e.txt)" << std::endl;
@@ -1161,7 +1160,8 @@ bool GlobalReconstructionEngine::ReadInputData()
   }
 
   // b. Read matches (Essential)
-  if (!matching::PairedIndMatchImport(sComputedMatchesFile_E, _map_Matches_E)) {
+  std::vector<std::string> vec_imageFiles = stlplus::folder_files(_sImagePath);
+  if (!matching::PairedIndMatchImport(matching::ESSENTIAL_MATRIX, _sMatchesPath, vec_imageFiles, _map_Matches_E)) {
     std::cerr<< "Unable to read the Essential matrix matches" << std::endl;
     return false;
   }
