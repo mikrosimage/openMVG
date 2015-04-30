@@ -40,6 +40,14 @@ SET_PROPERTY(TARGET openMVG_SfM_Sequential PROPERTY FOLDER OpenMVG/OpenMVG)
 install(TARGETS openMVG_SfM_Sequential DESTINATION lib/)
 install(TARGETS openMVG_main_IncrementalSfM DESTINATION bin/)
 
+# - Find the pose of a new image into an existing 3D scene.
+#
+ADD_EXECUTABLE(openMVG_main_SfM_3DPoseFinder main_SfM_3DPoseFinder.cpp)
+TARGET_LINK_LIBRARIES(openMVG_main_SfM_3DPoseFinder
+                     ${OpenMVG_LIBS} flann_cpp_s ceres)
+
+install(TARGETS openMVG_main_SfM_3DPoseFinder DESTINATION bin/)
+
 #---------
 # Tools to visualize feature tracking data
 # - View of the extracted Keypoints

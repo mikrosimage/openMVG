@@ -45,7 +45,9 @@ struct Document
       && stlplus::is_file(stlplus::create_filespec(_sDirectory,"views","txt")))
     {
       // Read visibility file (3Dpoint, NbVisbility, [(imageId, featId); ... )
-      std::ifstream iFilein(stlplus::create_filespec(sDirectoryPly,"visibility","txt").c_str());
+      std::string iFilenamein = stlplus::create_filespec(sDirectoryPly,"visibility","txt");
+      std::ifstream iFilein(iFilenamein.c_str());
+      std::cout << "Read Visibility: " << iFilenamein << std::endl;
       if (iFilein.is_open())
       {
         size_t trackId = 0;
@@ -83,13 +85,20 @@ struct Document
       std::cerr << "Required file(s) is missing" << std::endl;
     }
 
+    std::cout << "_tracks.size() " << _tracks.size() << std::endl;
+    std::cout << "_map_visibility.size() " << _map_visibility.size() << std::endl;
+    std::cout << "_vec_points.size() " << _vec_points.size() << std::endl;
+
     // Read cameras
     std::string sDirectoryCam = stlplus::folder_append_separator(_sDirectory) + "cameras";
+    std::cout << "Read Cameras: " << sDirectoryCam << std::endl;
 
     size_t camIndex = 0;
     //Read views file
     {
-      std::ifstream iFilein(stlplus::create_filespec(_sDirectory,"views","txt").c_str());
+      std::string viewFilename = stlplus::create_filespec(_sDirectory,"views","txt");
+      std::cout << "Read views.txt: " << viewFilename << std::endl;
+      std::ifstream iFilein(viewFilename.c_str());
       if (iFilein.is_open())
       {
         std::string temp;
@@ -123,6 +132,7 @@ struct Document
           temp.clear();
         }
       }
+      std::cout << "_map_camera.size() " << _tracks.size() << std::endl;
       std::cout << "\n Loaded image names : " << std::endl;
       std::copy(_vec_imageNames.begin(), _vec_imageNames.end(), std::ostream_iterator<std::string>(std::cout, "\n"));
     }
